@@ -1,0 +1,15 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>alesur</groupId>
+  <artifactId>exceptionsVsMonads</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Exceptions vs Monads</name>
+  <description>Demonstrates benefits of using monads instead of exceptions in functional style programming</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>io.meat</groupId>
+  		<artifactId>try</artifactId>
+  		<version>0.0.2</version>
+  	</dependency>
+  </dependencies>
+</project>
