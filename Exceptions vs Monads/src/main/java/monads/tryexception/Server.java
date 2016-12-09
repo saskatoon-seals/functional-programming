@@ -23,6 +23,10 @@ public class Server {
      *   1. Elegant (no try/catch, no side-effects)
      *   2. As soon client wants to process the result, it's forced to handle the exception with
      *     .orElse(..)
+     *     
+     * DRAWBACKS:
+     * 
+     *   1. Exception type can't be parameterized.
      */
     public Try<String> makeRequestWithTry(String input) {
         return Try.attemptChecked(() -> dataAccess.readFile(input));
