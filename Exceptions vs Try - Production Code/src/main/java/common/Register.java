@@ -1,4 +1,4 @@
-package checkedexceptions;
+package common;
 
 public class Register {
   public int address;

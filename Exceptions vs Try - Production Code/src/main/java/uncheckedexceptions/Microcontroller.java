@@ -1,7 +1,8 @@
-package trymonad;
-import java.io.IOException;
+package uncheckedexceptions;
 
-//Class out of our control
+import common.Register;
+
+//This class is now modified, in order to demonstrate bubbling up of runtime exception
 public class Microcontroller {
 
   public static final int MIN_ADDRESS = 10;
@@ -9,21 +10,20 @@ public class Microcontroller {
 
   public static final int LUCKY_ADDRESS = 13;
 
-  public static Register read(int address) throws IOException {
+  public static Register read(int address) {
     if (!validate(address))
-      throw new IOException();
+      throw new IllegalStateException();
 
-    //Hypothetical read of register on given address..
+    //Hypothetical read of register on given address.
 
-    //Returns a register with a random value
-    return Register.create(address, -2 * address); 
+    return Register.create(address, -2 * address);
   }
 
-  public static Boolean write(Register register) throws IOException {
+  public static Boolean write(Register register) {
     if (!validate(register.address))
-      throw new IOException();
+      throw new IllegalStateException();
 
-    //Hypothetical write of register..
+    //Hypothetical flush of register.
 
     return true;
   }

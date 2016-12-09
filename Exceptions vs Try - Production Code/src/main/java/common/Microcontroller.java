@@ -1,4 +1,5 @@
-package checkedexceptions;
+package common;
+
 import java.io.IOException;
 
 //Class out of our control
@@ -13,8 +14,9 @@ public class Microcontroller {
     if (!validate(address))
       throw new IOException();
 
-    //Hypothetical read of register on given address.
+    //Hypothetical read of register on given address..
 
+    //Returns a register with a random value
     return Register.create(address, -2 * address);
   }
 
@@ -22,7 +24,7 @@ public class Microcontroller {
     if (!validate(register.address))
       throw new IOException();
 
-    //Hypothetical flush of register.
+    //Hypothetical write of register..
 
     return true;
   }
