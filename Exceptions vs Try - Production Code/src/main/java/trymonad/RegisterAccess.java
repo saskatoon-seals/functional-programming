@@ -5,15 +5,15 @@ import java.util.function.Function;
 
 import com.nextbreakpoint.Try;
 
+import common.Microcontroller;
+import common.Register;
+
 //You would write this code, wrapping exception with Tries
 public class RegisterAccess {
 
-  public static final int MIN_ADDRESS = 10;
-  public static final int MAX_ADDRESS = 20;
-
   /**
    * Reads a register on a given address
-   * 
+   *
    * @param address - address
    * @return try with register on success and IOException on failure
    */
@@ -28,7 +28,7 @@ public class RegisterAccess {
 
   /**
    * Writes a value of a given register
-   *  
+   *
    * @param register - register with a value to write
    * @return - try with true on success and IOException on failure
    */
