@@ -1,12 +1,10 @@
-package collecting;
+package collectors;
 
 import static java.util.stream.Collectors.reducing;
 import static java.util.stream.Collectors.summingInt;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import datastructures.Dish;
 
 public class Collecting {
   

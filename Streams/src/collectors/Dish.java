@@ -1,4 +1,4 @@
-package datastructures;
+package collectors;
 
 public class Dish {
 
