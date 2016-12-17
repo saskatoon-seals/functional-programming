@@ -2,9 +2,9 @@
 
 Example implementations of different concepts of functional programming in Java.
 
-NOTE: Folders are Eclipse Java projects. If you have eclipse point the workspace directory to the cloned repository.
-Otherwise use only /src/ and /test/ files and ignore hidden files and folders.
+In object-oriented programming we define classes and then extend them, overloading their methods. In functional programming, we define higher order functions as interfaces and call them with different parameters, resulting in different behaviors.
 
 Reference: 
 - Richard M. Reese: "Learning Java Functional Programming", 2015.
 - Raoul-Gabriel Urma: "Java 8 in Action", 2014
+- Nickolay Tsvetinov: "Learning Reactive Programming with Java 8", 2016
