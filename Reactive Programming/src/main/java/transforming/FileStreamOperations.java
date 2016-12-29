@@ -91,7 +91,7 @@ public class FileStreamOperations {
    * @param path - file path
    * @return string observable
    */
-  private static Observable<String> from(final Path path) {
+  static Observable<String> from(final Path path) {
     return Observable.<String>create(subscriber -> {
       try {
         BufferedReader reader = Files.newBufferedReader(path);
