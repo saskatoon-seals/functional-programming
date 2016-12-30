@@ -7,6 +7,11 @@ import io.reactivex.disposables.Disposable;
 
 public class ObserverUtil {
 
+  /**
+   * Unsubscribes given subscriptions
+   *
+   * @param subscriptions - subscriptions to unsubscribe
+   */
   public static void unsubscribe(Disposable... subscriptions) {
     Arrays.stream(subscriptions)
           .forEach(Disposable::dispose);
