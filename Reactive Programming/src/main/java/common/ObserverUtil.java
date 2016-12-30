@@ -1,6 +1,7 @@
 package common;
 
 import java.util.Arrays;
+import java.util.concurrent.CountDownLatch;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -33,5 +34,24 @@ public class ObserverUtil {
           },
         () -> System.out.println(name + " ended!")
       );
+  }
+
+  /**
+   * Subscribes to an observable, printing all its emissions.
+   * Blocks until the observable calls onCompleted or onError.
+   */
+  public static <T> void blockingSubscribePrint(Observable<T> observable, String name) {
+    CountDownLatch latch = new CountDownLatch(1);
+
+    subscribePrint(
+        observable.doFinally(() -> latch.countDown()),
+        name
+    );
+
+    try {
+      latch.await();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }
