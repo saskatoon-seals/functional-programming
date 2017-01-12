@@ -1,5 +1,6 @@
 package debugdump;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,15 +27,16 @@ public class FunctionCallObserver {
       .doFinally(() -> latch.countDown())
       .subscribe(
           //on successful execution of command:
-          result -> Files.write(output,
-                                Arrays.asList(result),
-                                StandardOpenOption.CREATE),
-
+          result -> saveResult(output, result),
           //if command threw an exception:
-          exception -> Files.write(output,
-                                   Arrays.asList(exception.toString()),
-                                   StandardOpenOption.CREATE)
+          exception -> saveResult(output, exception.toString())
       );
+  }
+
+  private static void saveResult(Path outputFile, String result) throws IOException {
+    Files.write(outputFile,
+                Arrays.asList(result),
+                StandardOpenOption.CREATE);
   }
 
   private Path getOuputFilePath(int index) {
