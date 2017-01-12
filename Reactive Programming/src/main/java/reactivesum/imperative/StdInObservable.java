@@ -7,9 +7,9 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 public class StdInObservable implements ObservableOnSubscribe<String>{
-  
+
   BufferedReader reader;
-  
+
   public StdInObservable(BufferedReader reader) {
     this.reader = reader;
   }
@@ -18,19 +18,19 @@ public class StdInObservable implements ObservableOnSubscribe<String>{
   public void subscribe(ObservableEmitter<String> subscriber) throws Exception {
     if (subscriber.isDisposed()) {
       return;
-    }    
+    }
     processInput(subscriber);
-    
+
     if (!subscriber.isDisposed()) {
       subscriber.onComplete();
     }
-  }   
-    
+  }
+
   private void processInput(ObservableEmitter<String> subscriber) {
     try {
       String line;
       while(!subscriber.isDisposed() && (line = reader.readLine()) != null) {
-        if (line == null || line == "exit") {
+        if (line == null || line.equals("exit")) {
           break;
         }
         subscriber.onNext(line);
@@ -40,5 +40,5 @@ public class StdInObservable implements ObservableOnSubscribe<String>{
     }
   }
 
-  
+
 }

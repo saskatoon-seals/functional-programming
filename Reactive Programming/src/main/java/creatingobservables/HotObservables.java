@@ -14,7 +14,7 @@ import io.reactivex.observables.ConnectableObservable;
  *
  * Observers are invoked synchronously
  */
-public class ConnectingObservablesFactory {
+public class HotObservables {
 
   public static void connectableObservable() {
     Observable<Long> interval = Observable.interval(500L, TimeUnit.MILLISECONDS);
