@@ -2,9 +2,12 @@ package common;
 
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicReference;
 
+import io.reactivex.Notification;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class ObserverUtil {
 
@@ -53,5 +56,47 @@ public class ObserverUtil {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Debug observables and their schedulers
+   *
+   * @param description - description
+   * @return consumer of notification
+   */
+  public static <T> Consumer<Notification<? super T>> debug(String description) {
+    return debug(description, "");
+  }
+
+  /**
+   * Debug observables and their schedulers
+   *
+   * @param description - description
+   * @param offset - offset
+   * @return consumer of notification
+   */
+  public static <T> Consumer<Notification<? super T>> debug(String description, String offset) {
+    AtomicReference<String> nextOffset = new AtomicReference<String>(">");
+
+    return (Notification<? super T> notification) -> {
+      if (notification.isOnNext()) {
+        System.out.println(
+            Thread.currentThread().getName() +
+            "|" + description + ": " + offset +
+            nextOffset.get() +
+            notification.getValue()
+            );
+      } else if (notification.isOnError()) {
+        System.err.println(Thread.currentThread().getName() +
+            "|" + description + ": " + offset +
+            nextOffset.get() + " X " + notification.getError());
+      } else if (notification.isOnComplete()) {
+        System.out.println(Thread.currentThread().getName() +
+            "|" + description + ": " + offset +
+            nextOffset.get() + "|"
+            );
+      }
+      nextOffset.getAndUpdate(p -> "-" + p);
+    };
   }
 }
