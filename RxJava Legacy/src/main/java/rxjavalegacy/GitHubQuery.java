@@ -22,12 +22,12 @@ import rx.apache.http.ObservableHttp;
 import rx.apache.http.ObservableHttpResponse;
 
 //I'm using old RxJava 1.0 APIs
-public class GitHubRepositoriesQuery implements Runnable {
+public class GitHubQuery implements Runnable {
 
   private final String username;
   private Map<String, Set<Map<String, Object>>> cache = new ConcurrentHashMap<>();
 
-  public GitHubRepositoriesQuery(String username) {
+  public GitHubQuery(String username) {
     this.username = username;
   }
 
@@ -63,7 +63,7 @@ public class GitHubRepositoriesQuery implements Runnable {
   }
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  private Observable<Map> requestJson(HttpAsyncClient client, String url) {
+  /* default */ Observable<Map> requestJson(HttpAsyncClient client, String url) {
     Observable<String> rawResponse = createRawResponse(client, url);
 
     Observable<String> jsonObjects = toJsonObject(rawResponse);
@@ -71,7 +71,7 @@ public class GitHubRepositoriesQuery implements Runnable {
 
     Observable<Map> response =
         jsonArrays.ambWith(jsonObjects) //we'll use the one emitting data and treat result as JSON array
-                  .map(GitHubRepositoriesQuery::jsonToListOfMaps) //turn into List of Map instances
+                  .map(GitHubQuery::jsonToListOfMaps) //turn into List of Map instances
                   .flatMapIterable(list -> list) //flattens the lists of maps into maps only
                   .cast(Map.class)
                   .doOnNext(json -> getCache(url).add(json)); //Add to in-memory cache
@@ -89,7 +89,7 @@ public class GitHubRepositoriesQuery implements Runnable {
     return ObservableHttp
             .createGet(url, client)
             .toObservable() //Makes async HTTP request using Apache HttpClient
-            .flatMap(GitHubRepositoriesQuery::toJsonResponse) //gets JSON string of an HTTP response
+            .flatMap(GitHubQuery::toJsonResponse) //gets JSON string of an HTTP response
             .retry(5) //Possible problems with connecting to GitHub
             .cast(String.class) //?
             .map(String::trim) //Trims trailing and leading white spaces
@@ -163,7 +163,7 @@ public class GitHubRepositoriesQuery implements Runnable {
   //************************************************************************************************
 
   public static void main(String... args){
-    GitHubRepositoriesQuery client = new GitHubRepositoriesQuery("meddle0x53");
+    GitHubQuery client = new GitHubQuery("meddle0x53");
     client.run();
   }
 }
