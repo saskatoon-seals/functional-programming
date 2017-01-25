@@ -32,10 +32,6 @@ public class StringCalculatorFunctional {
    * @return sum of numbers
    */
   public static String sum(String input) {
-    if (input == null || input.isEmpty()) {
-      return ERROR_MESSAGE;
-    }
-
     return sum(input.split(REGEX))
         .orElse(ERROR_MESSAGE);
   }
