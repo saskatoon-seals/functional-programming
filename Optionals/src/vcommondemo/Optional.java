@@ -111,6 +111,14 @@ public class Optional<T> {
     return new Optional<>();
   }
 
+  /**
+   * Unary return operation
+   *
+   * Wraps a given generic value into an optional with a minimum context
+   *
+   * @param value - value to wrap
+   * @return value wrapped in an optional
+   */
   public static <T> Optional<T> of(T value) {
     return new Optional<>(value);
   }
