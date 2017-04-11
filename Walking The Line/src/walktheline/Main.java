@@ -2,6 +2,9 @@ package walktheline;
 
 import java.util.Arrays;
 
+/*
+ * All of the methods are referentially transparent
+ */
 public class Main {
   public static final int MAX_DIFFERENCE = 3;
   public static final String FAILED_MSG = "Fell of the rope";
