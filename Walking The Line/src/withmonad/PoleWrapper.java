@@ -33,7 +33,7 @@ public class PoleWrapper {
 
   public static PoleWrapper create(Pole pole) {
     if (pole == null) {
-      return new PoleWrapper(null, false);
+      return new PoleWrapper();
     }
 
     return new PoleWrapper(pole, true);
@@ -62,6 +62,7 @@ public class PoleWrapper {
           createPole.call()
       );
     } catch (Exception e) {
+      //Think of this method as an exception logging (stdout is used here for simplicity)
       System.out.println("Pole creation failed");
 
       return new PoleWrapper();
