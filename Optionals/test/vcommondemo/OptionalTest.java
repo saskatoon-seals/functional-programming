@@ -124,11 +124,11 @@ public class OptionalTest {
   //************************************************************************************************
   //                                      Apply tests (Applicative)
   //************************************************************************************************
+  Function<Integer, Integer> mapper = value -> value + 10;
+  Function<Integer, Function<Integer, Integer>> curriedMapper = a -> b -> a - b;
 
   @Test
   public void appliesSingleFunctionOnFunctor() {
-    Function<Integer, Integer> mapper = value -> value + 10;
-
     assertEquals(
         new Integer(110),
         Optional.of(mapper)
@@ -139,11 +139,9 @@ public class OptionalTest {
 
   @Test
   public void chainsFuntionApplicationsOnTwoFunctors() {
-    Function<Integer, Function<Integer, Integer>> mapper = a -> b -> a - b;
-
     assertEquals(
         new Integer(190),
-        Optional.of(mapper)
+        Optional.of(curriedMapper)
                 .apply(Optional.of(200))
                 .apply(Optional.of(10))
                 .get()
@@ -152,10 +150,8 @@ public class OptionalTest {
 
   @Test
   public void chainsFunctionApplicationOnEmptyAndNonEmptyFunctors() {
-    Function<Integer, Function<Integer, Integer>> mapper = a -> b -> a - b;
-
     assertTrue(
-        Optional.of(mapper)
+        Optional.of(curriedMapper)
                 .apply(Optional.empty())
                 .apply(Optional.of(10))
                 .isEmpty()
@@ -164,8 +160,6 @@ public class OptionalTest {
 
   @Test(expected=ClassCastException.class)
   public void throwsWhenApplyingFunctorOnNonApplicative() {
-    Function<Integer, Integer> mapper = value -> value + 10;
-
     Optional.of(mapper)
             .apply(Optional.of(100))  //Applicative becomes a normal functor (with data value)
             .apply(Optional.of(100)); //At this point the optional doesn't contain a function anymore
