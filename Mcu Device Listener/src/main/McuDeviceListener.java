@@ -1,4 +1,4 @@
-package ucd.reactivex;
+package main;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
