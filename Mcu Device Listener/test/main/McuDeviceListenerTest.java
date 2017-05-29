@@ -1,7 +1,7 @@
-package ucd.reactivex;
+package main;
 
-import static ucd.reactivex.McuDeviceListener.SUBSYSTEM_NAME;
-import static ucd.reactivex.McuDeviceListener.PORT_PREFIX;
+import static main.McuDeviceListener.PORT_PREFIX;
+import static main.McuDeviceListener.SUBSYSTEM_NAME;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 
 import io.reactivex.observers.TestObserver;
 import jlibudev.UdevDevice;
+import main.McuDeviceListener;
 
 public class McuDeviceListenerTest {
   UdevDevice device;
