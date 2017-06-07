@@ -29,6 +29,13 @@ public class ComplexCurrying {
     );
   }
 
+  private static void curriedHelper2(Function<Supplier<Client>, Function<String, Integer>> action,
+      Supplier<Client> factory, String msg) {
+    System.out.println(
+        action.apply(factory).apply(msg)
+    );
+  }
+
   private static void nonCurriedHelper(BiFunction<Client, String, Integer> action, Supplier<Client> factory,
       String msg) {
     System.out.println(
