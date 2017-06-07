@@ -17,7 +17,13 @@ public class ComplexCurrying {
     nonCurriedHelper(
         (client, msg) -> client.send(msg), //function definition
         () -> new Client(),                //data parameter 1
-        "314"                              //data parameter 2
+        "312"                              //data parameter 2
+    );
+
+    hackedCurrying(
+        factory -> msg -> factory.get().send(msg),
+        () -> new Client(),
+        "112"
     );
   }
 
@@ -26,6 +32,13 @@ public class ComplexCurrying {
     System.out.println(
       action.apply(factory.get())
             .apply(msg)
+    );
+  }
+
+  private static void hackedCurrying(Function<Supplier<Client>, Function<String, Integer>> action,
+      Supplier<Client> factory, String msg) {
+    System.out.println(
+        action.apply(factory).apply(msg)
     );
   }
 
