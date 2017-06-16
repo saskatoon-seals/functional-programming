@@ -1,7 +1,6 @@
 package common;
 
 public final class DisplayUtil {
-
   private DisplayUtil() { }
 
   public static <T> void display(T content) {
