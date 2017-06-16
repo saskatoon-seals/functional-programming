@@ -9,7 +9,6 @@ import com.surftools.BeanstalkClient.Client;
 import com.surftools.BeanstalkClient.Job;
 
 public final class BeanstalkUtil {
-
   private BeanstalkUtil() { }
 
   public static void sendMessage(String tubeName, byte[]... messages) {
@@ -40,6 +39,10 @@ public final class BeanstalkUtil {
       job = client.reserve(0);
     }
   }
+
+  //***********************************************************************************************
+  //                                    Helper methods
+  //***********************************************************************************************
 
   private static Optional<byte[]> readMessageHelper(String tubeName, Integer timeout) {
     Client client = new ConnectionSettings(tubeName)
