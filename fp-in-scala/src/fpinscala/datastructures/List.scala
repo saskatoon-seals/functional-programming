@@ -105,6 +105,9 @@ object List {
   def append1[A] (xs: List[A], ys: List[A]): List[A] = 
     foldRight (xs, ys) (Cons(_, _))
     
+  def append2[A] (xs: List[A], ys: List[A]): List[A] = 
+    foldLeft (reverse(xs), ys) ((acc, x) => Cons(x, acc))
+    
   def reverse[A](as: List[A]): List[A] = as match {
     case Nil => Nil
     case Cons(x, xs) => append(reverse(xs), Cons(x, Nil)) 
@@ -115,4 +118,53 @@ object List {
     
   def reverse2[A](as: List[A]): List[A] =
     foldLeft (as, Nil:List[A]) ((acc, x) => Cons(x, acc))
+    
+  def flatten[A](xs: List[List[A]]): List[A] = 
+    foldRight(xs, Nil:List[A])(append)
+     
+  def addNum(xs: List[Int], n: Int): List[Int] = 
+    foldRight(xs, Nil:List[Int]) ((h, t) => Cons(h + n, t))
+    
+  def toString[A](xs: List[A]): List[String] = 
+    foldRight(xs, Nil:List[String])((h, t) => Cons(h.toString(), t))
+    
+  def map[A,B](xs: List[A])(f: A => B): List[B] = 
+    foldRight(xs, Nil:List[B]) ((h, t) => Cons(f(h), t))
+    
+  def filter[A](xs: List[A])(p: A => Boolean): List[A] =  
+    foldRight(xs, Nil:List[A])((h, t) => if (p(h)) Cons(h, t) else t)
+  
+  //flatMap is just simply superior to foldRight in the case of filter
+  def filter1[A](xs: List[A])(p: A => Boolean): List[A] = 
+    flatMap(xs)(x => if (p(x)) List(x) else Nil)
+  
+  def flatMap[A,B](xs: List[A])(f: A => List[B]): List[B] = 
+    flatten(map(xs)(f))
+    
+  def zip[A, B, C](xs: List[A], ys: List[B])(f: (A, B) => C): List[C] = (xs, ys) match {
+    case (Nil, _) => Nil
+    case (_, Nil) => Nil
+    case (Cons(x, xs), Cons(y, ys)) => Cons(f(x, y), zip(xs, ys)(f))
+  }
+    
+  @tailrec
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = sup match {
+    case _ if foldRight (zip(sup, sub)(_ == _), true) (_ && _) => true 
+    case Cons(h, t) if length(t) >= length(sub) => hasSubsequence(t, sub)
+    case _ => false
+  }
+  
+  @tailrec
+  def startsWith[A](l: List[A], prefix: List[A]): Boolean = (l, prefix) match {
+    case (_, Nil) => true
+    case (Cons(x, xs), Cons(y, ys)) if x == y => startsWith(xs, ys)
+    case _ => false
+  }
+  
+  @tailrec
+  def hasSubsequence1[A](sup: List[A], sub: List[A]): Boolean = sup match {
+    case Nil => false
+    case _ if startsWith(sup, sub) => true
+    case Cons(h, t) => hasSubsequence1(t, sub)
+  }
 }
