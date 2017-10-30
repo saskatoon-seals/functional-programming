@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>alesur</groupId>
-  <artifactId>reactive-frameworks</artifactId>
+  <artifactId>camel-beanstalk</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>reactive-frameworks</name>
+  <name>camel-beanstalk</name>
   <url>http://maven.apache.org</url>
 
   <properties>

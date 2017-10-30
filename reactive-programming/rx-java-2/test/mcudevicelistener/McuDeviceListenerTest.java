@@ -1,15 +1,15 @@
-package main;
-
-import static main.McuDeviceListener.PORT_PREFIX;
-import static main.McuDeviceListener.SUBSYSTEM_NAME;
+package mcudevicelistener;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import static mcudevicelistener.McuDeviceListener.PORT_PREFIX;
+import static mcudevicelistener.McuDeviceListener.SUBSYSTEM_NAME;
+
 import io.reactivex.observers.TestObserver;
 import jlibudev.UdevDevice;
-import main.McuDeviceListener;
+import mcudevicelistener.McuDeviceListener;
 
 public class McuDeviceListenerTest {
   UdevDevice device;
