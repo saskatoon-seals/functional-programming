@@ -72,6 +72,10 @@ class ListSuite extends FunSuite {
     assert(List.append1(List(1, 2), List(3, 4)) == List(1, 2, 3, 4))
   }
   
+  test("Append2 should append two lists") {
+    assert(List.append2(List(1, 2), List(3, 4)) == List(1, 2, 3, 4))
+  }
+  
   test("Reverse should reverse a list") {
     assert(List.reverse(List(1, 2, 3)) == List(3, 2, 1))
   }
@@ -82,5 +86,45 @@ class ListSuite extends FunSuite {
   
   test("Reverse2 should reverse a list") {
     assert(List.reverse2(List(1, 2, 3)) == List(3, 2, 1))
+  }
+  
+  test("Flatten should concatenate three lists") {
+    assert(List.flatten(List(List(1, 2, 3), List(4, 5), List(6))) == List(1, 2, 3, 4, 5, 6))
+  }
+  
+  test("AddNum should add number to every element") {
+    assert(List.addNum(List(4, 11), 1) == List(5, 12))
+  }
+  
+  test("toString returns a list of strings") {
+    assert(List.toString(List(1.1)) == List("1.1"))
+  }
+  
+  test("map should return a list of strings for given list of integers") {
+    assert(List.map(List(10, 11))(_.toString) == List("10", "11"))
+  }
+  
+  test("filter should return only the elments satisfying a predicate") {
+    assert(List.filter(List(2, 3))(x => x % 2 == 0) == List(2))
+  }
+  
+  test("filter1 should return only the elments satisfying a predicate") {
+    assert(List.filter1(List(2, 3))(x => x % 2 == 0) == List(2))
+  }
+  
+  test("zip with (_ + _) should return an addition of list's numbers") {
+    assert(List.zip(List(2, 3), List(1, 5))(_ + _) == List(3, 8))
+  }
+  
+  test("hasSubsequence should return true if subsequence exists") {
+    assert(List.hasSubsequence(List(1, 2, 3, 4), List(2, 3)) == true)
+  }
+  
+  test("hasSubsequence should return false if subsequence doesn't exist") {
+    assert(List.hasSubsequence(List(1, 2, 3, 4), List(1, 4)) == false)
+  }
+  
+  test("hasSubsequence should return true if subsequence exists at the beginning") {
+    assert(List.hasSubsequence(List(1, 2, 3, 4), List(1, 2)) == true)
   }
 }
