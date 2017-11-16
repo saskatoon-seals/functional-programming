@@ -127,4 +127,8 @@ class ListSuite extends FunSuite {
   test("hasSubsequence should return true if subsequence exists at the beginning") {
     assert(List.hasSubsequence(List(1, 2, 3, 4), List(1, 2)) == true)
   }
+  
+  test("startsWith1 should return false") {
+    assert(List.startsWith1(List("A", "B", "C", "D"), List("A", "C", "D")) == false)
+  }
 }

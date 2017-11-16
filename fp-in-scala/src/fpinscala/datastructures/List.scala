@@ -161,6 +161,10 @@ object List {
     case _ => false
   }
   
+  def startsWith1[A](xs: List[A], prefix: List[A]): Boolean = 
+    if (xs == Nil) false 
+    else foldRight(zip(xs, prefix)((a, b) => {println("zip"); a == b}), true)((a, b) => {println("fold"); a && b})
+  
   @tailrec
   def hasSubsequence1[A](sup: List[A], sub: List[A]): Boolean = sup match {
     case Nil => false
