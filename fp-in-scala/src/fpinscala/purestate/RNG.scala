@@ -28,7 +28,7 @@ object RNG {
   def double(rng: RNG): (Double, RNG) = {
     val (n, newRng) = nonNegativeInt(rng)
     
-    ((n.toDouble / (Int.MaxValue + 1)), newRng)
+    ((n / (Int.MaxValue + 1)), newRng)
   }
   
   def intDouble(rng: RNG): ((Int, Double), RNG) = {
