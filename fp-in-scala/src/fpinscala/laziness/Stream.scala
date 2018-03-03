@@ -102,7 +102,7 @@ sealed trait Stream[+A] {
     })
     
   def zipWith[B, C](ys: Stream[B])(f: (A, B) => C): Stream[C] =
-    zip(this, ys)(f)    
+    Stream.zip(this, ys)(f)    
    
   def hasSubsequence[A](xs: Stream[A]): Boolean = this match {
     case Empty => false
@@ -149,6 +149,16 @@ sealed trait Stream[+A] {
     
     scanHelper(this, z)(f)
   }
+  
+  @annotation.tailrec
+  final def find(f: A => Boolean): Option[A] = this match {
+    case Empty      => None
+    case Cons(h, t) => if (f(h())) Some(h()) else t().find(f)
+  }
+  
+  // special case of `zipWith`
+  def zip[B](s2: Stream[B]): Stream[(A, B)] =
+    zipWith(s2)((_, _))
 }
 
 case object Empty extends Stream[Nothing]
