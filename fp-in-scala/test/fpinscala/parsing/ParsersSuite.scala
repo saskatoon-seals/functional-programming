@@ -5,11 +5,13 @@ import scala.util.parsing.combinator.{Parsers => _}
 import org.scalatest.FunSuite
 
 class ParsersSuite extends FunSuite {
-  val parsers: Parsers[String, Parser] = null
+  //just as an example
+  trait Parser[+A];
+  val parsers: Parsers[Parser] = null
   
   test("char parser recognizes specific chars") {
     val char: Char = 'w'
-    val charParser: Parser[Char] = parsers.charParser(char)
+    val charParser: Parser[Char] = parsers.char(char)
     
     //law - not expressed as a property i.e. forall chars
     assert(parsers.run(charParser)(char.toString()) == Right(char))
@@ -72,6 +74,41 @@ class ParsersSuite extends FunSuite {
     assert(parsers.run(p)("ababab") == Right("ababab"))
   }
   
-  //just as an example
-  trait Parser[+A];
+  test("countChar multiple laws") {
+    import parsers._
+    
+    val p = countChar('a')
+    
+    //string that starts with 'a'
+    assert(parsers.run(p)("abcdef") == Right(1))
+    
+    //string that doesn't start with 'a'
+    assert(parsers.run(p)("fa") == Right(1))
+    
+    //=> the laws above say that the starting character isn't important
+    
+    assert(parsers.run(p)("b123") == Right(0))
+  }
+  
+  test("countCharPositive multiple laws") {
+    val p = parsers.countCharPositive('a')
+    
+    //even though 'a' appeared once
+    assert(parsers.run(p)("bca") == Left("String must start with 'a'"))
+    
+    //string started with 'a'
+    assert(parsers.run(p)("abca") == Right(2))
+  }
+  
+  test("countPairChar multiple laws") {
+    val p = parsers.countPairChar('a', 'b')
+    
+    assert(parsers.run(p)("bbb") == Right((0, 3)))
+    assert(parsers.run(p)("aaaab") == Right((4, 1)))
+    
+    //string doesn't have to start with 'a'
+    assert(parsers.run(p)("gaaaab") == Right((4, 1)))
+    
+    assert(parsers.run(p)("aaa") == Left("There must be at least one 'b'"))
+  }
 }
