@@ -71,6 +71,12 @@ object AsyncPar {
         }
     )
     
+  def flatMap[A,B](p: AsyncPar[A])(f: A => AsyncPar[B]): AsyncPar[B] =
+    throw new UnsupportedOperationException
+    
+  def parMap[A,B](as: IndexedSeq[A])(f: A => B): AsyncPar[IndexedSeq[B]] =
+    throw new UnsupportedOperationException
+    
   def map2[A,B,C](parA: AsyncPar[A], parB: AsyncPar[B])(f: (A, B) => C): AsyncPar[C] = {
     throw new UnsupportedOperationException()
   }
