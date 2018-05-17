@@ -28,10 +28,13 @@ case class State[S, +A](run: S => (A, S)) {
 }
 
 object State {
+  def getState[S] = State((s: S) => (s, s))
+  
+  def setState[S](s: S): State[S, Unit] = State(_ => ((), s))
+  
   //creates a pure state computation object
   def unit[S, A](a: A): State[S, A] =
     State(s => (a, s))
-  
   
   def sequence[S, A](fs: List[State[S, A]]): State[S, List[A]] = fs match {
     case h :: t => {

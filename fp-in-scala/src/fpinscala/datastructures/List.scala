@@ -171,4 +171,17 @@ object List {
     case _ if startsWith(sup, sub) => true
     case Cons(h, t) => hasSubsequence1(t, sub)
   }
+  
+  def listOfN[A](a: A, n: Int): List[A] = 
+    if (n == 0)
+      List()
+    else 
+      Cons(a, listOfN(a, n-1))
+      
+  def last[A](as: List[A]): A = as match {
+    case Cons(h, t) => t match {
+      case Nil => h
+      case _ => last(t)
+    }
+  }
 }
