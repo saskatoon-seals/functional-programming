@@ -1,4 +1,7 @@
-package fpinscala.monads
+package fpinscala.functors.normal
+
+import scala.Left
+import scala.Right
 
 //F[_] is a type constructor
 trait Functor[F[_]] {
