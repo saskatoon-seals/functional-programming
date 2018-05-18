@@ -1,6 +1,4 @@
-package fpinscala.monads
-
-import fpinscala.purestate.State
+package fpinscala.purestate
 
 object Stack {
   //type
