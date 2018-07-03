@@ -41,4 +41,14 @@ object Interpreter {
     case Free.FlatMap(Free.Suspend(r), f) => F.flatMap(r())(a => runFree(f(a))) 
     case _ => sys.error("can't happen!")
   }
+  
+  
+  // To run an `IO`, we need an executor service.
+  // The name we have chosen for this method, `unsafePerformIO`,
+  // reflects that is is unsafe, i.e. that it has side effects,
+  // and that it _performs_ the actual I/O.
+  import java.util.concurrent.ExecutorService
+  
+  def unsafePerformIO[A](io: IO[A])(implicit E: ExecutorService): A =
+    throw new UnsupportedOperationException
 }
